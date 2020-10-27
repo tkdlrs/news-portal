@@ -39,8 +39,18 @@ class topNavigationMenu extends HTMLElement {
     </nav>
         `;
     }
-}
+};
 
+function queryDBAndSetUpUserStoriesFeed(appender) {
+    if(appender != null) {
+        // This will need to be updated to match your backend. I'm going to fetch my fake json data to similate an async request to the database
+        fetch('./javascript/fake-data.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+    };
+};
+
+// EVENTS 
 // Event Delegation for dynamic elements in the forms
 function setupEventDelegationForNews(element) {
     if(element !== null) {
@@ -138,7 +148,8 @@ function submitNewNewsItem(formElement) {
     };
 };
 
-// HTML Templates
+// HTML TEMPLATES
+// paragraph
 function renderAdditionalParagraph(appender) {
     const currentParagraphCount = document.querySelectorAll('.paragraph').length;
     const htmlTemplate = `
@@ -154,7 +165,7 @@ function renderAdditionalParagraph(appender) {
 `;
     appender.innerHTML += htmlTemplate;
 };
-
+// art
 function renderAdditionalArt(appender) {
     const currentArtItemsCount = document.querySelectorAll('.art').length;
     const htmlTemplate = `
@@ -174,7 +185,16 @@ function renderAdditionalArt(appender) {
   </div>
     `;
     appender.innerHTML += htmlTemplate;
+};
+
+// story feed template
+function renderStoryInFeed(data, appender) {
+    const htmlTemplate = `
+
+    `;
+    appender.innerHTML += htmlTemplate;
 }
+
 
 //
 window.addEventListener("DOMContentLoaded", () => {
@@ -183,5 +203,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // set up event delegation on the whole document
     setupEventDelegationForNews(document);
     // set up the form submission for adding new News items
-    submitNewNewsItem(document.querySelector('#create-news-story-form'))
+    submitNewNewsItem(document.querySelector('#create-news-story-form'));
+    // set up the news feed for regular users
+    queryDBAndSetUpUserStoriesFeed(document.querySelector('#stories'));
 });

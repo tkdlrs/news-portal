@@ -1,0 +1,47 @@
+[
+    {
+        "arts": [
+            {
+                "image": "Test",
+                "caption": "test"
+            }
+        ],
+        "author": "test",
+        "contact": "test",
+        "paragraphs": [
+            "test"
+        ],
+        "publishDate": "00/00/0000",
+        "tags": [
+            "Option 1",
+            "Option 5"
+        ],
+        "thumbnailImage": "test",
+        "title": "test"
+    },
+    {
+        "arts": [
+            {
+                "image": "./static_assets/donald-giannatti-unsplash-meat.jpg",
+                "caption": "Bacon in it's natural habitat"
+            }
+        ],
+        "author": "Porky Pig",
+        "contact": "Porky Pig at porky.pig@fake-example.fake",
+        "paragraphs": [
+            "Bacon ipsum dolor amet prosciutto pork chop shoulder bresaola sirloin ham hock boudin bacon venison pork chislic drumstick ham rump frankfurter. Pig jerky flank t-bone. Tenderloin tail fatback, pork pastrami kevin meatball. Shankle pork belly venison biltong flank sirloin.",
+            "Short ribs meatloaf shoulder ribeye turkey picanha sausage strip steak ball tip biltong rump. Jerky salami strip steak pork turducken. Spare ribs shoulder corned beef chislic tenderloin. Chicken rump prosciutto chislic shankle jerky leberkas pork chop frankfurter salami spare ribs landjaeger. Spare ribs picanha short loin biltong tongue ham hock. Chicken doner pancetta ham hock tri-tip buffalo meatball tail pork venison bresaola tongue ham pastrami.",           
+            "Porchetta tri-tip tenderloin ham brisket bacon alcatra kevin. Shankle beef frankfurter, chuck landjaeger doner ribeye kielbasa t-bone. Andouille drumstick pastrami, tail biltong cow filet mignon hamburger beef. Prosciutto kevin ribeye beef pancetta chislic.",
+            "Chislic short loin corned beef, ground round jerky cupim kevin pork belly. Strip steak short ribs burgdoggen kielbasa beef ribs kevin corned beef beef salami t-bone andouille alcatra doner bacon. Buffalo shoulder tail prosciutto doner chislic capicola flank short loin jowl pork. Buffalo beef bacon, alcatra swine shankle ground round shank chislic corned beef. Pastrami prosciutto chicken, pancetta rump tongue chislic ham. Jowl tenderloin spare ribs, flank strip steak beef ribs salami tail burgdoggen cow turducken cupim capicola. Biltong bresaola cow, pastrami tenderloin meatloaf burgdoggen bacon.",
+            "Beef ribs pork loin chuck, swine alcatra pancetta jowl drumstick fatback doner pork chop chislic corned beef filet mignon. Rump shank tri-tip pork loin. Flank tongue andouille ribeye shankle jowl salami cow short ribs pig chislic cupim. Ball tip biltong pig, rump turkey ham hock cow shankle bacon. Fatback alcatra flank, kevin salami capicola tenderloin picanha pork loin pastrami boudin spare ribs pancetta. Frankfurter porchetta andouille kielbasa."
+        ],
+        "publishDate": "00/00/0000",
+        "tags": [
+            "Option 1",
+            "Option 3",
+            "Option 5"
+        ],
+        "thumbnailImage": "./static_assets/bacon-thumbnail.jpg",
+        "title": "Bacon Ipsum"
+    }
+]
