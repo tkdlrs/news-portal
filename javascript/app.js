@@ -1,4 +1,47 @@
-// Event Delegation for dynamic elements in the form
+// Component for Top Nav
+class topNavigationMenu extends HTMLElement {
+    constructor() {
+        super();
+        this.innerHTML = `
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand text-white" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn text-white btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+        `;
+    }
+}
+
+// Event Delegation for dynamic elements in the forms
 function setupEventDelegationForNews(element) {
     if(element !== null) {
         element.addEventListener("click", (e) => {
@@ -47,8 +90,50 @@ function submitNewNewsItem(formElement) {
     if(formElement !== null) {
         formElement.addEventListener('submit', (e) => {
             e.preventDefault();
+            let tags = [];
+            let paragraphs = [];
+            let arts = [];
             const newsItem = {};
-            newsItem.title = formElement['#title'].value;
+            newsItem.title = formElement['title'].value;
+            newsItem.author = formElement['author'].value;
+            newsItem.publishDate = formElement['publish-date'].value;
+            newsItem.contact = formElement['contact'].value;
+            newsItem.thumbnailImage = formElement['thumbnail-image'].value;
+
+            // figure out tags array
+            const allPotentialTags = document.querySelectorAll('.tags[type="checkbox"]');
+            allPotentialTags.forEach(tag => {
+                if(tag.checked){
+                    tags.push(tag.value);
+                }
+            });
+            newsItem.tags = tags;
+
+            // figure out all of the stories paragraphs
+            const allParagraphs = document.querySelectorAll('.paragraph');
+            allParagraphs.forEach(paragraphElement => {
+                paragraphs.push(paragraphElement.querySelector('textarea').value);
+            });
+            newsItem.paragraphs = paragraphs;
+
+            // figure out all of the art that the story has
+            const allArts = document.querySelectorAll('.art');
+            allArts.forEach(art => {
+                arts.push({image: art.querySelector('input.image').value, caption: art.querySelector('input.caption').value})
+            });
+            newsItem.arts = arts;
+
+            // Here is where you would submit the object to the database.
+            console.log(newsItem);
+
+            // UI feedback stuff
+            formElement.reset();
+            formElement.classList.add('d-none');
+            document.querySelector('#success-notification').classList.remove('d-none');
+            setTimeout(() => {
+                formElement.classList.remove('d-none');
+                document.querySelector('#success-notification').classList.add('d-none');
+            }, 3000);
         })
     };
 };
@@ -93,5 +178,10 @@ function renderAdditionalArt(appender) {
 
 //
 window.addEventListener("DOMContentLoaded", () => {
+    // set up the top navigation menu component 
+    window.customElements.define('top-navigation-menu', topNavigationMenu);
+    // set up event delegation on the whole document
     setupEventDelegationForNews(document);
+    // set up the form submission for adding new News items
+    submitNewNewsItem(document.querySelector('#create-news-story-form'))
 });
