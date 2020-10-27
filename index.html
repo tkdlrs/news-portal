@@ -85,37 +85,6 @@
                             <label class="font-weight-bold" for="thumbnail-image">Thumbnail Image</label>
                             <input type="text" class="form-control" id="thumbnail-image" required="required" />
                         </div>
-
-                        <div>
-                            <button class="btn btn-success" id="add-paragraph">+ Add Paragraph</button>
-                            <h2 class="h4">Story</h2>
-                            <div id="story-paragraphs">
-                                <div class="paragraph form-group">
-                                    <label class="font-weight-bold" for="paragraph-0">Paragraph </label>
-                                    <textarea class="form-control" id="paragraph-0" rows="3"
-                                        required="required"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <button class="btn btn-success" id="add-image">+ Add Image</button>
-                            <h2 class="h4">Story Art</h2>
-                            <div id="story-art">
-                                <div class="art">
-                                    <div class="form-group">
-                                        <label class="font-weight-bold" for="image-0">Image</label>
-                                        <input type="text" class="form-control" id="image-0" required="required" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold" for="caption-0">Caption</label>
-                                        <input type="text" class="form-control" id="caption-0" required="required" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <div class="form-row">
                                 <p class="font-weight-bold">Tagging</p>
@@ -147,10 +116,45 @@
                             </div>
                         </div>
 
+                        <div>
+                            <button type="button" class="btn btn-success" id="add-paragraph">+ Add Paragraph</button>
+                            <h2 class="h3">Story</h2>
+                            <div id="story-paragraphs">
+                                <div class="paragraph card mb-3">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold" for="paragraph-1">Paragraph 1</label>
+                                            <textarea class="form-control" id="paragraph-1" rows="3"
+                                                required="required"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="button" class="btn btn-success" id="add-art">+ Add Image 1</button>
+                            <h2 class="h3">Story Art</h2>
+                            <div id="story-art">
+
+                                <div class="card mb-3 art">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold image" for="image-1">Image 1</label>
+                                            <input type="text" class="form-control image" id="image-1" required="required" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold caption" for="caption-1">Caption 1</label>
+                                            <input type="text" class="form-control caption" id="caption-1"
+                                                required="required" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-12 my-3">
-                                <notification-element class="d-none" data-notification-type="Error">
-                                </notification-element>
+                                <div class="alert alert-danger d-none error"></div>
                             </div>
                         </div>
                         <div class="form-group">
