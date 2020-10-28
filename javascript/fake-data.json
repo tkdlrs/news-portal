@@ -2,21 +2,29 @@
     {
         "arts": [
             {
-                "image": "Test",
+                "image": "https://via.placeholder.com/800x600",
                 "caption": "test"
             }
         ],
         "author": "test",
         "contact": "test",
         "paragraphs": [
-            "test"
+            "Spicy jalapeno bacon ipsum dolor amet jowl tri-tip shank landjaeger. Filet mignon meatloaf pig cow, shankle chislic venison swine. Strip steak spare ribs turducken short loin tail, tongue prosciutto salami capicola biltong filet mignon pork chop. Sirloin ribeye chislic brisket flank turducken ham sausage pork belly porchetta ham hock pork. Swine salami turkey short ribs picanha burgdoggen beef ribs frankfurter chuck flank hamburger chislic.",
+            "Sausage salami alcatra, cow shank picanha boudin andouille pastrami. Tri-tip venison chuck sausage, bresaola shank jowl ground round pork ribeye kielbasa corned beef tongue. Ham ground round shankle short loin andouille venison, meatball beef leberkas hamburger porchetta pork swine tail burgdoggen. Turkey beef andouille, ham hock chicken pork loin rump beef ribs landjaeger porchetta kevin biltong. Cupim biltong bresaola, turducken meatball andouille shoulder picanha rump. Ham hock fatback bresaola, sirloin shankle rump hamburger andouille pastrami venison t-bone jerky. Turducken prosciutto kielbasa drumstick capicola flank pork loin shoulder meatball burgdoggen.",
+            "Leberkas t-bone ball tip ham hock hamburger bacon shank, boudin biltong. Strip steak tenderloin pastrami hamburger fatback bacon doner pork loin jerky. Strip steak fatback biltong chislic tenderloin. Swine chislic jowl pig strip steak ground round venison turkey turducken rump. Cupim t-bone tri-tip fatback andouille shankle jowl tail. Flank cupim chicken strip steak ground round ham ribeye pork loin. Beef beef ribs ribeye bresaola turducken, corned beef doner chislic fatback drumstick cow.",
+            "Strip steak tri-tip pork belly ham hock beef brisket bresaola flank. Pork chop tongue chuck tri-tip spare ribs buffalo fatback. Ribeye ham hock tri-tip, kielbasa filet mignon ground round drumstick burgdoggen spare ribs pastrami doner. Cupim chislic pork belly pig filet mignon shank. Ham hock ham pastrami shankle chislic ball tip ribeye sirloin capicola biltong kevin doner bresaola short loin. Sirloin flank porchetta swine, ham hock shankle sausage turducken buffalo beef ribs andouille drumstick chislic.",
+            "Sausage kielbasa porchetta shoulder, cow jerky rump meatball fatback beef ribs bresaola pancetta pastrami spare ribs biltong. Pig chislic frankfurter pork chop ground round doner pork rump. Boudin buffalo sirloin porchetta leberkas. Ground round jowl sausage cupim, spare ribs bresaola kevin pancetta alcatra short loin. T-bone pig swine, meatloaf short ribs biltong buffalo landjaeger rump leberkas chuck ham beef shank. Strip steak corned beef cupim kielbasa, pork alcatra tail pork belly shoulder biltong. Pork filet mignon ribeye tri-tip hamburger, jerky drumstick t-bone short loin strip steak prosciutto ball tip pastrami.",
+            "Ball tip tongue leberkas filet mignon tenderloin. Ball tip spare ribs kevin tail fatback chislic tenderloin pork belly flank rump meatball sausage. Prosciutto beef short ribs, chuck buffalo ground round meatball venison leberkas shank hamburger cupim alcatra. Frankfurter turkey strip steak spare ribs venison bresaola tenderloin, burgdoggen meatball.",
+            "Andouille corned beef chicken sausage pork belly flank venison spare ribs rump bresaola shankle swine ham hock shank boudin. Burgdoggen fatback andouille prosciutto bresaola turducken leberkas swine filet mignon short ribs hamburger jerky brisket corned beef. Picanha flank biltong beef beef ribs shank. Corned beef ribeye andouille hamburger, drumstick pork loin pork bacon flank prosciutto kevin spare ribs tri-tip short ribs shankle. Turducken pork belly t-bone, leberkas chuck capicola spare ribs beef rump bresaola buffalo ribeye jowl prosciutto sausage. Shank flank picanha tri-tip. Turkey porchetta fatback spare ribs bresaola ball tip cupim, shoulder flank.",
+            "Alcatra biltong cupim ball tip, flank pork chop porchetta tail strip steak. Shank leberkas salami biltong boudin, pastrami turkey beef ball tip burgdoggen cow. Bresaola shoulder swine chuck drumstick. Tail andouille corned beef cupim jerky shankle. Fatback ham alcatra beef ribs picanha meatball filet mignon shank strip steak tail chislic. Doner ham hock rump turducken, ground round pork loin meatloaf frankfurter.",
+            "Kevin pancetta beef flank frankfurter strip steak buffalo ham. Frankfurter meatloaf tenderloin chislic ball tip, beef swine meatball cow turkey. Strip steak swine pastrami picanha. Pork shank ham hock, hamburger shankle tri-tip swine. Pork loin venison buffalo, capicola landjaeger cupim meatball doner chislic rump shank pork chop."
         ],
         "publishDate": "00/00/0000",
         "tags": [
             "Option 1",
             "Option 5"
         ],
-        "thumbnailImage": "test",
+        "thumbnailImage": "https://via.placeholder.com/400x300",
         "title": "test"
     },
     {
@@ -24,13 +32,17 @@
             {
                 "image": "./static_assets/donald-giannatti-unsplash-meat.jpg",
                 "caption": "Bacon in it's natural habitat"
+            },
+            {
+                "image": "./static_assets/andrew-ridley-unsplash-bacon.jpg",
+                "caption": "Bacon that is in an artificial habitat"
             }
         ],
         "author": "Porky Pig",
         "contact": "Porky Pig at porky.pig@fake-example.fake",
         "paragraphs": [
             "Bacon ipsum dolor amet prosciutto pork chop shoulder bresaola sirloin ham hock boudin bacon venison pork chislic drumstick ham rump frankfurter. Pig jerky flank t-bone. Tenderloin tail fatback, pork pastrami kevin meatball. Shankle pork belly venison biltong flank sirloin.",
-            "Short ribs meatloaf shoulder ribeye turkey picanha sausage strip steak ball tip biltong rump. Jerky salami strip steak pork turducken. Spare ribs shoulder corned beef chislic tenderloin. Chicken rump prosciutto chislic shankle jerky leberkas pork chop frankfurter salami spare ribs landjaeger. Spare ribs picanha short loin biltong tongue ham hock. Chicken doner pancetta ham hock tri-tip buffalo meatball tail pork venison bresaola tongue ham pastrami.",           
+            "Short ribs meatloaf shoulder ribeye turkey picanha sausage strip steak ball tip biltong rump. Jerky salami strip steak pork turducken. Spare ribs shoulder corned beef chislic tenderloin. Chicken rump prosciutto chislic shankle jerky leberkas pork chop frankfurter salami spare ribs landjaeger. Spare ribs picanha short loin biltong tongue ham hock. Chicken doner pancetta ham hock tri-tip buffalo meatball tail pork venison bresaola tongue ham pastrami.",
             "Porchetta tri-tip tenderloin ham brisket bacon alcatra kevin. Shankle beef frankfurter, chuck landjaeger doner ribeye kielbasa t-bone. Andouille drumstick pastrami, tail biltong cow filet mignon hamburger beef. Prosciutto kevin ribeye beef pancetta chislic.",
             "Chislic short loin corned beef, ground round jerky cupim kevin pork belly. Strip steak short ribs burgdoggen kielbasa beef ribs kevin corned beef beef salami t-bone andouille alcatra doner bacon. Buffalo shoulder tail prosciutto doner chislic capicola flank short loin jowl pork. Buffalo beef bacon, alcatra swine shankle ground round shank chislic corned beef. Pastrami prosciutto chicken, pancetta rump tongue chislic ham. Jowl tenderloin spare ribs, flank strip steak beef ribs salami tail burgdoggen cow turducken cupim capicola. Biltong bresaola cow, pastrami tenderloin meatloaf burgdoggen bacon.",
             "Beef ribs pork loin chuck, swine alcatra pancetta jowl drumstick fatback doner pork chop chislic corned beef filet mignon. Rump shank tri-tip pork loin. Flank tongue andouille ribeye shankle jowl salami cow short ribs pig chislic cupim. Ball tip biltong pig, rump turkey ham hock cow shankle bacon. Fatback alcatra flank, kevin salami capicola tenderloin picanha pork loin pastrami boudin spare ribs pancetta. Frankfurter porchetta andouille kielbasa."
