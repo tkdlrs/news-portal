@@ -16,6 +16,9 @@ class topNavigationMenu extends HTMLElement {
                     <a class="nav-link text-white" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-white" href="./admin-view-all-stories.html">Admin View All Stories</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-white" href="./add-story.html">Add Story</a>
                 </li>
                 <li class="nav-item">
@@ -78,6 +81,42 @@ function queryDBAndSetUpNewsStory(appender, urlParameter) {
     }
 };
 
+//admins view all
+function queryDBAndSetUpAdminStoriesFeed(appender) {
+    if (appender != null) {
+        fetch('./javascript/fake-data.json')
+            .then(response => response.json())
+            .then(docs => {
+                docs.forEach(doc => {
+                    renderAdminViewAll(doc, appender)
+                })
+            })
+            .catch(err => console.error(err));
+    }
+};
+// admins edit story
+function queryDBAndSetUpEditStory(appender, urlParameter) {
+    if(appender != null) {
+        fetch('./javascript/fake-data.json')
+        .then(response => response.json())
+        .then(docs => {
+            docs.forEach(doc => {
+                const regex = /\s/gi;
+                const cleanTitle = doc.title.trim().replace(regex, '-').toLowerCase();
+                if (cleanTitle === urlParameter) {
+                    renderAdminEditStory(doc, appender);
+                }
+            });
+            return;
+        })
+        .then(() => {
+            submitUpdatesToNewsItem(document.querySelector('#update-news-story-form'));
+            return;
+        })
+        .catch(err => console.error(err));
+    }
+}
+
 // EVENTS 
 // Event Delegation for dynamic elements in the forms
 function setupEventDelegationForNews(element) {
@@ -125,6 +164,59 @@ function setupEventDelegationForNews(element) {
 
 // News item Submission
 function submitNewNewsItem(formElement) {
+    if (formElement !== null) {
+        formElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let tags = [];
+            let paragraphs = [];
+            let arts = [];
+            const newsItem = {};
+            newsItem.title = formElement['title'].value;
+            newsItem.author = formElement['author'].value;
+            newsItem.publishDate = formElement['publish-date'].value;
+            newsItem.contact = formElement['contact'].value;
+            newsItem.thumbnailImage = formElement['thumbnail-image'].value;
+
+            // figure out tags array
+            const allPotentialTags = document.querySelectorAll('.tags[type="checkbox"]');
+            allPotentialTags.forEach(tag => {
+                if (tag.checked) {
+                    tags.push(tag.value);
+                }
+            });
+            newsItem.tags = tags;
+
+            // figure out all of the stories paragraphs
+            const allParagraphs = document.querySelectorAll('.paragraph');
+            allParagraphs.forEach(paragraphElement => {
+                paragraphs.push(paragraphElement.querySelector('textarea').value);
+            });
+            newsItem.paragraphs = paragraphs;
+
+            // figure out all of the art that the story has
+            const allArts = document.querySelectorAll('.art');
+            allArts.forEach(art => {
+                arts.push({ image: art.querySelector('input.image').value, caption: art.querySelector('input.caption').value })
+            });
+            newsItem.arts = arts;
+
+            // Here is where you would submit the object to the database.
+            console.log(newsItem);
+
+            // UI feedback stuff
+            formElement.reset();
+            formElement.classList.add('d-none');
+            document.querySelector('#success-notification').classList.remove('d-none');
+            setTimeout(() => {
+                formElement.classList.remove('d-none');
+                document.querySelector('#success-notification').classList.add('d-none');
+            }, 3000);
+        })
+    };
+};
+
+// Update a News item Submission -Same as submitNewNewsItem function but with a backend it would be different. for now it is placeholder.
+function submitUpdatesToNewsItem(formElement) {
     if (formElement !== null) {
         formElement.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -269,7 +361,7 @@ function renderNewsStory(data, appender) {
 
         if (currentArt < artsLength && (i % 3) === 0) {
             combinedStoryAndArtTemplate += `
-            <div class="${(currentArt % 2) ? 'float-left': 'float-right'} m-1 bg-blue-light p-0 col-md-5">
+            <div class="${(currentArt % 2) ? 'float-left' : 'float-right'} m-1 bg-blue-light p-0 col-md-5">
                 <a href="${data.arts[currentArt].image}">
                     <img class="w-100" src="${data.arts[currentArt].image}" alt="${data.arts[currentArt].caption}">
                 </a>
@@ -305,6 +397,153 @@ function renderNewsStory(data, appender) {
     appender.innerHTML = htmlTemplate;
 };
 
+// admins view all stories 
+function renderAdminViewAll(data, appender) {
+    const regex = /\s/gi;
+    const cleanTitle = data.title.trim().replace(regex, '-').toLowerCase();
+    const htmlTemplate = `
+    <tr>
+        <td>${data.title}</td>
+        <td>${data.publishDate}</td>
+        <td><a class="btn btn-info btn-sm" href="./edit-story.html?${cleanTitle}">Edit</a></td>
+    </tr>
+    `;
+
+    appender.innerHTML += htmlTemplate;
+};
+
+// admin edit news story
+function renderAdminEditStory(data, appender) {
+    let paragraphsTemplate = ``;
+    for (let i = 0; i < data.paragraphs.length; i++) {
+        paragraphsTemplate += `
+<div class="paragraph card mb-3">
+    <div class="card-body">
+        <div class="form-group">
+            ${(i != 0) ?`<button type="button" class="float-right btn btn-danger my-1 remove-paragraph">Remove Paragraph</button>`: ``}
+            <label class="font-weight-bold" for="paragraph-${(i+1)}">Paragraph ${(i+1)}</label>
+            <textarea class="form-control" id="paragraph-${(i+1)}" rows="3" required="required">${data.paragraphs[i]}</textarea>
+        </div>
+    </div>
+</div>
+        `;
+    };
+
+    let artsTemplate = ``;
+    for(let j = 0; j < data.arts.length; j++) {
+        artsTemplate += `
+<div class="card mb-3 art">
+    <div class="card-body">
+        <div class="form-group">
+           ${(j != 0) ? `<button type="button" class="float-right btn btn-danger my-1 remove-art">Remove Art</button>` : ``} 
+            <label class="font-weight-bold image" for="image-${(j+1)}">Image ${(j+1)}</label>
+            <input type="text" class="form-control image" id="image-${(j+1)}" required="required" value="${data.arts[j].image}" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold caption" for="caption-${(j+1)}">Caption ${(j+1)}</label>
+            <input type="text" class="form-control caption" id="caption-${(j+1)}" required="required" value="${data.arts[j].caption}" />
+        </div>
+    </div>
+</div>
+    `;
+    }
+
+    const htmlTemplate = `
+    <div class="row">
+    <div class="col-12">
+        <div>
+            <div id="success-notification" class="alert alert-success d-none">
+                <p>Story successfully added.</p>
+            </div>
+            <form id="update-news-story-form">
+                <div class="form-group">
+                    <label class="font-weight-bold" for="title">Title</label>
+                    <input type="text" class="form-control" id="title" required="required" value="${data.title}" />
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold" for="author">Author Name</label>
+                    <input type="text" class="form-control" id="author" required="required" value="${data.author}" />
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold" for="publish-date">Publish Date</label>
+                    <input type="text" class="form-control" id="publish-date" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" placeholder="MM/DD/YYYY"
+                        required="required" value="${data.publishDate}" />
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold" for="contact">Contact</label>
+                    <input type="text" class="form-control" id="contact" required="required" value="${data.contact}" />
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold" for="thumbnail-image">Thumbnail Image</label>
+                    <input type="text" class="form-control" id="thumbnail-image" required="required" value="${data.thumbnailImage}" />
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <p class="font-weight-bold">Tagging</p>
+                        </div>
+                        <div class="form-check form-check-inline col">
+                            <input class="form-check-input tags" type="checkbox" id="option1"
+                                value="Option 1" ${(data.tags.includes("Option 1")) ? 'checked' : ''} />
+                            <label class="form-check-label" for="option1">Option 1</label>
+                        </div>
+                        <div class="form-check form-check-inline col">
+                            <input class="form-check-input tags" type="checkbox" id="option2"
+                                value="Option 2" ${(data.tags.includes("Option 2")) ? 'checked' : ''} />
+                            <label class="form-check-label" for="option2">Option 2</label>
+                        </div>
+                        <div class="form-check form-check-inline col">
+                            <input class="form-check-input tags" type="checkbox" id="option3"
+                                value="Option 3" ${(data.tags.includes("Option 3")) ? 'checked' : ''} />
+                            <label class="form-check-label" for="option3">Option 3</label>
+                        </div>
+                        <div class="form-check form-check-inline col">
+                            <input class="form-check-input tags" type="checkbox" id="option4"
+                                value="Option 4" ${(data.tags.includes("Option 4")) ? 'checked' : ''} />
+                            <label class="form-check-label" for="option4">Option 4</label>
+                        </div>
+                        <div class="form-check form-check-inline col">
+                            <input class="form-check-input tags" type="checkbox" id="option5"
+                                value="Option 5" ${(data.tags.includes("Option 5")) ? 'checked' : ''} />
+                            <label class="form-check-label" for="option5">Option 5</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success" id="add-paragraph">+ Add Paragraph</button>
+                    <h2 class="h3">Story</h2>
+                    <div id="story-paragraphs">
+                       ${paragraphsTemplate}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success" id="add-art">+ Add Image</button>
+                    <h2 class="h3">Story Art</h2>
+                    <div id="story-art">
+                        ${artsTemplate}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-12 my-3">
+                        <div class="alert alert-danger d-none error"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="float-right">
+                        <p class="mt-2"><a href="#">Important legalese</a></p>
+                        <button class="btn btn-primary" type="submit">Update News Story</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+    `;
+
+    appender.innerHTML = htmlTemplate;
+};
+
 //
 window.addEventListener("DOMContentLoaded", () => {
     // set up the top navigation menu component 
@@ -317,4 +556,9 @@ window.addEventListener("DOMContentLoaded", () => {
     queryDBAndSetUpUserStoriesFeed(document.querySelector('#stories'));
     // set up an individual news item
     queryDBAndSetUpNewsStory(document.querySelector('#story'), document.URL.split('?')[1]);
+    // set up an admin view all page
+    queryDBAndSetUpAdminStoriesFeed(document.querySelector('#admin-view-all-news'));
+    // Set up edit for an individual news story
+    queryDBAndSetUpEditStory(document.querySelector('#edit-story'), document.URL.split('?')[1]);
+    
 });
