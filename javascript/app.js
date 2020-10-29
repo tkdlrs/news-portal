@@ -37,6 +37,9 @@ class topNavigationMenu extends HTMLElement {
                 <li class="nav-item">
                     <a class="nav-link text-white" href="./build-a-story.html">Build a Story</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="./view-build-a-story-story.html">View a Build a Story</a>
+                </li>
                 
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -95,24 +98,24 @@ function queryDBAndSetUpAdminStoriesFeed(appender) {
 };
 // admins edit story
 function queryDBAndSetUpEditStory(appender, urlParameter) {
-    if(appender != null) {
+    if (appender != null) {
         fetch('./javascript/fake-data.json')
-        .then(response => response.json())
-        .then(docs => {
-            docs.forEach(doc => {
-                const regex = /\s/gi;
-                const cleanTitle = doc.title.trim().replace(regex, '-').toLowerCase();
-                if (cleanTitle === urlParameter) {
-                    renderAdminEditStory(doc, appender);
-                }
-            });
-            return;
-        })
-        .then(() => {
-            submitUpdatesToNewsItem(document.querySelector('#update-news-story-form'));
-            return;
-        })
-        .catch(err => console.error(err));
+            .then(response => response.json())
+            .then(docs => {
+                docs.forEach(doc => {
+                    const regex = /\s/gi;
+                    const cleanTitle = doc.title.trim().replace(regex, '-').toLowerCase();
+                    if (cleanTitle === urlParameter) {
+                        renderAdminEditStory(doc, appender);
+                    }
+                });
+                return;
+            })
+            .then(() => {
+                submitUpdatesToNewsItem(document.querySelector('#update-news-story-form'));
+                return;
+            })
+            .catch(err => console.error(err));
     }
 }
 
@@ -419,9 +422,9 @@ function renderAdminEditStory(data, appender) {
 <div class="paragraph card mb-3">
     <div class="card-body">
         <div class="form-group">
-            ${(i != 0) ?`<button type="button" class="float-right btn btn-danger my-1 remove-paragraph">Remove Paragraph</button>`: ``}
-            <label class="font-weight-bold" for="paragraph-${(i+1)}">Paragraph ${(i+1)}</label>
-            <textarea class="form-control" id="paragraph-${(i+1)}" rows="3" required="required">${data.paragraphs[i]}</textarea>
+            ${(i != 0) ? `<button type="button" class="float-right btn btn-danger my-1 remove-paragraph">Remove Paragraph</button>` : ``}
+            <label class="font-weight-bold" for="paragraph-${(i + 1)}">Paragraph ${(i + 1)}</label>
+            <textarea class="form-control" id="paragraph-${(i + 1)}" rows="3" required="required">${data.paragraphs[i]}</textarea>
         </div>
     </div>
 </div>
@@ -429,18 +432,18 @@ function renderAdminEditStory(data, appender) {
     };
 
     let artsTemplate = ``;
-    for(let j = 0; j < data.arts.length; j++) {
+    for (let j = 0; j < data.arts.length; j++) {
         artsTemplate += `
 <div class="card mb-3 art">
     <div class="card-body">
         <div class="form-group">
            ${(j != 0) ? `<button type="button" class="float-right btn btn-danger my-1 remove-art">Remove Art</button>` : ``} 
-            <label class="font-weight-bold image" for="image-${(j+1)}">Image ${(j+1)}</label>
-            <input type="text" class="form-control image" id="image-${(j+1)}" required="required" value="${data.arts[j].image}" />
+            <label class="font-weight-bold image" for="image-${(j + 1)}">Image ${(j + 1)}</label>
+            <input type="text" class="form-control image" id="image-${(j + 1)}" required="required" value="${data.arts[j].image}" />
         </div>
         <div class="form-group">
-            <label class="font-weight-bold caption" for="caption-${(j+1)}">Caption ${(j+1)}</label>
-            <input type="text" class="form-control caption" id="caption-${(j+1)}" required="required" value="${data.arts[j].caption}" />
+            <label class="font-weight-bold caption" for="caption-${(j + 1)}">Caption ${(j + 1)}</label>
+            <input type="text" class="form-control caption" id="caption-${(j + 1)}" required="required" value="${data.arts[j].caption}" />
         </div>
     </div>
 </div>
@@ -559,18 +562,145 @@ window.addEventListener("DOMContentLoaded", () => {
     queryDBAndSetUpAdminStoriesFeed(document.querySelector('#admin-view-all-news'));
     // Set up edit for an individual news story
     queryDBAndSetUpEditStory(document.querySelector('#edit-story'), document.URL.split('?')[1]);
-    
+
 });
 
 //This is the build a story stuff. Which is similar but different.
+
+
+// Render a Build a story story
+function queryDBAndSetUpBuildAStory(appender, urlParameter) {
+    if (appender !== null) {
+        fetch('./javascript/fake-build-a-story.json')
+            .then(response => response.json())
+            .then(docs => {
+                docs.forEach(doc => {
+                    const regex = /\s/gi;
+                    const cleanTitle = doc.title.trim().replace(regex, '-').toLowerCase();
+                    if (cleanTitle === urlParameter) {
+                        renderBuildAStory(doc, appender);
+                    };
+                })
+            })
+            .catch(err => console.error(err));
+    }
+};
+
+function renderBuildAStory(data, appender) {
+    let sectionTemplate = ``;
+
+    data.sections.forEach(section => {
+        sectionTemplate += `
+        <div class="row">
+            <div class="col-12">
+            ${(section.title.trim() != '') ? `<h2>${section.title.trim()}</h2>` : ``}
+        `;
+        const numberOfItemsInSection = Object.keys(section).length - 1;
+        for (let i = 0; i < numberOfItemsInSection; i++) {
+            if (section[`item${i}`].itemType == 'paragraph') {
+                sectionTemplate += `
+                <p>${section[`item${i}`].paragraph}</p>
+                `;
+            } else if (section[`item${i}`].itemType == 'list') {
+                sectionTemplate += `<ul>`;
+                section[`item${i}`].list.forEach(listItem => {
+                    sectionTemplate += `<li>${listItem}</li>`;
+                })
+                sectionTemplate += `</ul>`;
+            } else if (section[`item${i}`].itemType == 'image') {
+                let floatSide = '';
+                if (section[`item${i}`].alignment === 'Left') {
+                    floatSide = 'float-left'
+                } else {
+                    floatSide = 'float-right'
+                }
+                let width = '';
+                switch (section[`item${i}`].width) {
+                    case '25%':
+                        width = 'col-md-3';
+                        break;
+                    case '33%':
+                        width = 'col-md-4';
+                        break;
+                    case '50%':
+                        width = 'col-md-6';
+                        break;
+                    case '66%':
+                        width = 'col-md-8';
+                        break;
+                    case '75%':
+                        width = 'col-md-9';
+                        break;
+                    case '100%':
+                        width = 'col-md-12';
+                        break;
+                }
+                sectionTemplate += `
+                    <div class="${floatSide} ${width}">
+                        <img class="w-100" src="${section[`item${i}`].imageURL}" alt="${section[`item${i}`].description}" />
+                    </div>
+                `;
+            } else {
+                'I do not know'
+            }
+        };
+        sectionTemplate += `
+            </div>
+        </div>
+        `;
+    })
+
+    const htmlTemplate = `
+<div class="row">
+    <div class="col-12">  
+        <h1>${data.title}</h1>
+        <div class="row justify-content-end">
+            <div class="col-sm-12 col-md-3">
+                <p class="h5">${data.publishDate}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        ${sectionTemplate}
+    </div>
+    <div class="col-12">
+        <p class="text-center">###</p>
+        <p><span class="font-weight-bold">Writer(s)</span>: ${data.author}</p>
+    </div>
+</div>
+    `;
+
+    appender.innerHTML = htmlTemplate;
+
+};
+
+queryDBAndSetUpBuildAStory(document.querySelector('#view-build-a-story'), document.URL.split('?')[1])
+
 // Event Delegation for dynamic elements in the forms
+// ToDo:// add the rest of the removing of things functionality.
 function setupEventDelegationForBuildAStory(element) {
     if (element !== null) {
         element.addEventListener("click", (e) => {
             // Adding new sections
-            if(e.target && e.target.matches('#add-section')) {
+            if (e.target && e.target.matches('#add-section')) {
                 e.stopPropagation();
                 renderBuildASection(document.querySelector('#sections'));
+            };
+
+            // Removing sections
+            if (e.target && e.target.matches('.delete-section')) {
+                e.stopPropagation();
+                e.target.closest('.section').remove();
+                const sections = document.querySelectorAll('.section');
+                for (let i = 0; i < sections.length; i++) {
+                    // sections[i].querySelector('label').setAttribute('for', `paragraph-${(i + 1)}`);
+                    // sections[i].querySelector('label').innerText = `Paragraph ${(i + 1)}`;
+                    // sections[i].querySelector('textarea').setAttribute('id', `paragraph-${(i + 1)}`);
+                };
+
+                // ToDo:// need to update everything downstream too... 
             };
 
             // Adding paragraph within a section
@@ -580,40 +710,41 @@ function setupEventDelegationForBuildAStory(element) {
                 console.log('currentSectionNumber', currentSectionNumber)
                 renderBuildAParagraph(e.target.closest('.section').querySelector('div'), currentSectionNumber)
             };
-            // ToDo:// allow the removal of a paragraph within a section when building a story
-            // if (e.target && e.target.matches(".remove-paragraph")) {
-            //     e.stopPropagation();
-            //     e.target.closest('.paragraph').remove();
-            //     const paragraphs = document.querySelectorAll('.paragraph');
-            //     for (let i = 0; i < paragraphs.length; i++) {
-            //         paragraphs[i].querySelector('label').setAttribute('for', `paragraph-${(i + 1)}`);
-            //         paragraphs[i].querySelector('label').innerText = `Paragraph ${(i + 1)}`;
-            //         paragraphs[i].querySelector('textarea').setAttribute('id', `paragraph-${(i + 1)}`);
-            //     }
-            // };
+            // Removing a paragraph within a section when building a story
+            if (e.target && e.target.matches(".remove-paragraph")) {
+                e.stopPropagation();
+                const currentSection = e.target.closest('.section');
+                const currentSectionNumber = currentSection.querySelector('div').getAttribute('id').split('-')[1];
+                e.target.closest('.paragraph').remove();
+                const paragraphs = currentSection.querySelectorAll('.paragraph');
+                for (let i = 0; i < paragraphs.length; i++) {
+                    paragraphs[i].querySelector('label').setAttribute('for', `section-${currentSectionNumber}-item-${i}-paragraph`);
+                    paragraphs[i].querySelector('textarea').setAttribute('id', `section-${currentSectionNumber}-item-${i}-paragraph`);
+                }
+            };
 
             // Adding list when building a story 
             if (e.target && e.target.matches('.add-list')) {
                 e.stopPropagation();
                 const currentSectionNumber = e.target.closest('.section').querySelector('div').getAttribute('id').split('-')[1];
                 renderBuildAList(e.target.closest('.section').querySelector('div'), currentSectionNumber);
-               
+
             };
 
             // ToDo:// set it up so peeps can remove whole lists.
 
-            if(e.target && e.target.matches('.add-list-item')) {
+            if (e.target && e.target.matches('.add-list-item')) {
                 e.stopPropagation();
                 renderAdditionalListItem(e.target.closest('.item').querySelector('.list-items'));
             };
 
             // ToDo:// set it up so peeps can remove individual list items.
-           
+
             // Adding image when building a story 
             if (e.target && e.target.matches('.add-image')) {
                 e.stopPropagation();
                 const currentSectionNumber = e.target.closest('.section').querySelector('div').getAttribute('id').split('-')[1];
-                renderBuildAnImage(e.target.closest('.section').querySelector('div'), currentSectionNumber) 
+                renderBuildAnImage(e.target.closest('.section').querySelector('div'), currentSectionNumber)
             };
             // Removing image when building a story 
             // if (e.target && e.target.matches('.remove-art')) {
@@ -634,13 +765,98 @@ function setupEventDelegationForBuildAStory(element) {
     };
 };
 
+function submitBuildAStory(formElement) {
+    if (formElement != null) {
+        formElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let items = [];
+            const buildAStory = {};
+            buildAStory.title = formElement['title'].value;
+            buildAStory.author = formElement['author'].value;
+            buildAStory.publishDate = formElement['publish-date'].value;
+            buildAStory.thumbnailImage = formElement['thumbnail-image'].value;
+
+            // sections 1) how many sections. 2) items in each section 3) keeping the order and getting each item in the section
+            const numberOfSections = document.querySelector('#sections').querySelectorAll('.section');
+            for (let currentSection = 0; currentSection < numberOfSections.length; currentSection++) {
+                const numberOfItemsInSection = numberOfSections[currentSection].querySelectorAll('.item');
+                const section = {};
+                section.title = formElement[`section-${currentSection}-title`].value;
+                if (numberOfItemsInSection.length > 0) {
+                    for (let item = 0; item < numberOfItemsInSection.length; item++) {
+                        if (numberOfItemsInSection[item].classList.contains('paragraph')) {
+                            section[`item${item}`] = {
+                                itemType: 'paragraph',
+                                paragraph: formElement[`section-${currentSection}-item-${item}-paragraph`].value
+                            };
+                        } else if (numberOfItemsInSection[item].classList.contains('list')) {
+                            let currentListArray = [];
+                            let currentList = numberOfItemsInSection[item].querySelectorAll('.list-item');
+                            currentList.forEach(listItem => {
+                                currentListArray.push(listItem.querySelector('input').value);
+                            })
+                            section[`item${item}`] = {
+                                itemType: 'list',
+                                list: currentListArray
+                            };
+                        } else if (numberOfItemsInSection[item].classList.contains('image')) {
+                            section[`item${item}`] = {
+                                itemType: 'image',
+                                imageURL: formElement[`section-${currentSection}-item-${item}-image`].value,
+                                description: formElement[`section-${currentSection}-item-${item}-image-description`].value,
+                                width: formElement[`section-${currentSection}-item-${item}-image-width`].value,
+                                alignment: formElement[`section-${currentSection}-item-${item}-image-alignment`].value,
+                            };
+                        } else {
+                            section[`item${item}`] = {
+                                itemType: 'impossible',
+                                string: 'Something previously believe to be impossible has happened. -Good Luck.'
+                            }
+                        }
+                    };
+                }
+                items.push(section);
+            };
+
+            buildAStory.sections = items;
+            // Here is where you would save the object to a database.
+            console.log(buildAStory);
+            // Print the json as a string to the DOM
+            document.querySelector('#output').innerText = JSON.stringify(buildAStory);
+
+
+            // UI feedback stuff
+            //  formElement.reset();
+            //  formElement.classList.add('d-none');
+            //  document.querySelector('#success-notification').classList.remove('d-none');
+            //  setTimeout(() => {
+            //      formElement.classList.remove('d-none');
+            //      document.querySelector('#success-notification').classList.add('d-none');
+            //  }, 3000);
+        })
+    };
+};
+
+submitBuildAStory(document.querySelector('#build-a-story-form'));
+
+
 // html template to add a new section when building a story
 function renderBuildASection(appender) {
     const numberOfSections = document.querySelectorAll('.section').length;
     const htmlTemplate = `
-    <div class="section">
+    <div class="section border p-3 mb-3">
     <div id="section-${numberOfSections}">
         <h3>Section ${numberOfSections}</h3>
+        <div class="row justify-content-end">
+            <div class="col-12 col-sm-4">
+                <button type="button" class="btn btn-danger btn-block delete-section">Delete Section</button>
+            </div>
+        </div>
+        <div class="my-3">
+            <label class="font-weight-bold" for="section-${numberOfSections}-title">Title</label>
+            <input class="form-control" id="section-${numberOfSections}-title" required="required" />
+        </div>
     </div>
     <div class="row">
         <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-paragraph">+ Add a Paragraph</button></div>
@@ -656,7 +872,7 @@ function renderBuildASection(appender) {
 function renderBuildAParagraph(appender, sectionNumber) {
     const itemNumber = appender.querySelectorAll('.item').length;
     const htmlTemplate = `
-    <div class="card mb-3 item">
+    <div class="card mb-3 item paragraph">
         <div class="card-body">
             <div class="form-group">
                 <button type="button" class="float-right btn btn-danger my-1 remove-paragraph">Remove Paragraph</button>
@@ -673,7 +889,7 @@ function renderBuildAParagraph(appender, sectionNumber) {
 function renderBuildAList(appender, sectionNumber) {
     const itemNumber = appender.querySelectorAll('.item').length;
     const htmlTemplate = `
-    <div class="card mb-3 item">
+    <div class="card mb-3 item list">
     <div class="card-body">
         <div class="form-group">
             <div class="mb-5">
@@ -712,7 +928,7 @@ function renderAdditionalListItem(appender) {
 function renderBuildAnImage(appender, sectionNumber) {
     const itemNumber = appender.querySelectorAll('.item').length;
     const htmlTemplate = `
-    <div class="card mb-3 item">
+    <div class="card mb-3 item image">
         <div class="card-body">
             <div class="form-group">
                 <button type="button" class="float-right btn btn-danger my-1 remove-image">Remove Image</button>
@@ -733,8 +949,8 @@ function renderBuildAnImage(appender, sectionNumber) {
                     <option value="100%">100%</option>
                 </select>
 
-                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-image-aligment">Image Width</label>
-                <select class="form-control" id="section-${sectionNumber}-item-${itemNumber}-image-aligment" required="required" >
+                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-image-alignment">Image Aligment</label>
+                <select class="form-control" id="section-${sectionNumber}-item-${itemNumber}-image-alignment" required="required" >
                     <option value="">Please select aligment</option>
                     <option value="Left">Left</option>
                     <option value="Right">Right</option>

@@ -48,13 +48,16 @@
 
                     <div id="sections">
                         <h2>Sections</h2>
-                        <div class="row justify-content-end">
+                        <div class="row justify-content-end mb-3">
                             <div class="col-12 col-sm-4"><button class="btn btn-success btn-block" id="add-section">+ Add a Section</button></div>
                         </div>
-                        <div class="section">
+                        <div class="section border  p-3 mb-3">
                             <div id="section-0">
                                 <h3>Section 0</h3>
-
+                                <div class="my-3">
+                                    <label class="font-weight-bold" for="section-0-title">Title</label>
+                                    <input class="form-control" id="section-0-title" required="required" />
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-paragraph">+ Add a Paragraph</button></div>
@@ -63,30 +66,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                       
-
-                        <div>
-                            <button type="button" class="btn btn-success" id="add-art">+ Add Image</button>
-                            <h2 class="h3">Story Art</h2>
-                            <div id="story-art">
-
-                                <div class="card mb-3 art">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label class="font-weight-bold image" for="image-1">Image 1</label>
-                                            <input type="text" class="form-control image" id="image-1" required="required" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="font-weight-bold caption" for="caption-1">Caption 1</label>
-                                            <input type="text" class="form-control caption" id="caption-1"
-                                                required="required" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="col-12 my-3">
                                 <div class="alert alert-danger d-none error"></div>
@@ -104,6 +83,7 @@
             </div>
         </div>
 
+        <div id="output"></div>
 
     </div>
 
@@ -117,6 +97,7 @@
     <script>
         window.addEventListener('DOMContentLoaded', (e) => {
             setupEventDelegationForBuildAStory(document);
+            
         })
     </script>
 </body>
