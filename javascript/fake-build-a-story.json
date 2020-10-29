@@ -63,21 +63,21 @@
                 },
                 "item1": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/amy-shamblen-vdYtOAdbOgc-unsplash.jpg",
                     "description": "400x300",
                     "width": "33%",
                     "alignment": "Left"
                 },
                 "item2": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/ana-azevedo-04Q0qhwGzT0-unsplash.jpg",
                     "description": "400x600",
                     "width": "33%",
                     "alignment": "Left"
                 },
                 "item3": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/brooke-lark-R18ecx07b3c-unsplash.jpg",
                     "description": "400x600",
                     "width": "33%",
                     "alignment": "Left"
@@ -91,7 +91,7 @@
                 },
                 "item1": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/charles-deluvio-h6TjtHUCcjI-unsplash.jpg",
                     "description": "400x300",
                     "width": "33%",
                     "alignment": "Right"
@@ -121,14 +121,14 @@
                 },
                 "item2": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/dan-russo-Zaag9iLSLAU-unsplash.jpg",
                     "description": "400x300",
                     "width": "50%",
                     "alignment": "Left"
                 },
                 "item3": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/donald-giannatti-unsplash-meat.jpg",
                     "description": "400x600",
                     "width": "50%",
                     "alignment": "Left"
@@ -139,14 +139,14 @@
                 },
                 "item5": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/edouard-tamba-vlEOYhGO8LM-unsplash.jpg",
                     "description": "400x300",
                     "width": "33%",
                     "alignment": "Left"
                 },
                 "item6": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/felix-zhao-c-Utr-mt5Ic-unsplash.jpg",
                     "description": "400x300",
                     "width": "33%",
                     "alignment": "Left"
@@ -157,7 +157,7 @@
                 },
                 "item8": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/freestocks-5JCIyPFjbG4-unsplash.jpg",
                     "description": "description",
                     "width": "25%",
                     "alignment": "Right"
@@ -172,7 +172,7 @@
                 },
                 "item11": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/jack-harner-FSZDUR4OZ-g-unsplash.jpg",
                     "description": "something",
                     "width": "25%",
                     "alignment": "Left"
@@ -183,7 +183,7 @@
                 },
                 "item13": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/jakub-kapusnak-4hgYULBzVEE-unsplash.jpg",
                     "description": "Help me",
                     "width": "66%",
                     "alignment": "Right"
@@ -212,7 +212,7 @@
                 },
                 "item2": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/mockup-graphics-Ov17i1UtCCU-unsplash.jpg",
                     "description": "400x300",
                     "width": "25%",
                     "alignment": "Left"
@@ -237,7 +237,7 @@
                 },
                 "item1": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/nathan-dumlao-IylDgTHzOUs-unsplash.jpg",
                     "description": "peace",
                     "width": "33%",
                     "alignment": "Right"
@@ -255,14 +255,14 @@
                 },
                 "item2": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/shawn-olivier-boivin-blanchard-GTRyvcFmzL8-unsplash.jpg",
                     "description": "400x600",
                     "width": "50%",
                     "alignment": "Left"
                 },
                 "item3": {
                     "itemType": "image",
-                    "imageURL": "https://via.placeholder.com/400x300",
+                    "imageURL": "./static_assets/thomas-habr-MjMLAst5pUI-unsplash.jpg",
                     "description": "400x300",
                     "width": "50%",
                     "alignment": "Right"
