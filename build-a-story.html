@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap v4.5.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Frontend for a News Portal System</title>
+</head>
+
+<body>
+
+    <top-navigation-menu></top-navigation-menu> 
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-12">
+                <h1>News Portal System</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <div id="success-notification" class="alert alert-success d-none">
+                        <p>Story successfully added.</p>
+                    </div>
+                    <form id="build-a-story-form">
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="title">Title</label>
+                            <input type="text" class="form-control" id="title" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="author">Author Name</label>
+                            <input type="text" class="form-control" id="author" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="publish-date">Publish Date</label>
+                            <input type="text" class="form-control" id="publish-date" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" placeholder="MM/DD/YYYY"
+                                required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="thumbnail-image">Thumbnail Image</label>
+                            <input type="text" class="form-control" id="thumbnail-image" required="required" />
+                        </div>
+
+                    <div id="sections">
+                        <h2>Sections</h2>
+                        <div class="row justify-content-end">
+                            <div class="col-12 col-sm-4"><button class="btn btn-success btn-block" id="add-section">+ Add a Section</button></div>
+                        </div>
+                        <div class="section">
+                            <div id="section-0">
+                                <h3>Section 0</h3>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-paragraph">+ Add a Paragraph</button></div>
+                                <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-list">+ Add a list</button></div> 
+                                <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-image">+ Add an image</button></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                       
+
+                        <div>
+                            <button type="button" class="btn btn-success" id="add-art">+ Add Image</button>
+                            <h2 class="h3">Story Art</h2>
+                            <div id="story-art">
+
+                                <div class="card mb-3 art">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold image" for="image-1">Image 1</label>
+                                            <input type="text" class="form-control image" id="image-1" required="required" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold caption" for="caption-1">Caption 1</label>
+                                            <input type="text" class="form-control caption" id="caption-1"
+                                                required="required" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-3">
+                                <div class="alert alert-danger d-none error"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="float-right">
+                                <p class="mt-2"><a href="#">Important legalese</a></p>
+                                <button class="btn btn-primary" type="submit">Build this News Story</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <script src="./javascript/app.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (e) => {
+            setupEventDelegationForBuildAStory(document);
+        })
+    </script>
+</body>
+
+</html>

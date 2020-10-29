@@ -15,30 +15,29 @@ class topNavigationMenu extends HTMLElement {
                 <li class="nav-item active">
                     <a class="nav-link text-white" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="./admin-view-all-stories.html">Admin View All Stories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="./add-story.html">Add Story</a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link text-white" href="./view-all-stories.html">View All Stories</a>
                 </li>
 
-                <!--
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                        Admin things
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="./add-story.html">Add Story</a>
+                        <a class="dropdown-item" href="./admin-view-all-stories.html">Admin View All Stories</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <!-- <a class="dropdown-item" href="#">Something else here</a> -->
                     </div>
                 </li>
-                -->
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="./build-a-story.html">Build a Story</a>
+                </li>
+                
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -549,7 +548,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // set up the top navigation menu component 
     window.customElements.define('top-navigation-menu', topNavigationMenu);
     // set up event delegation on the whole document
-    setupEventDelegationForNews(document);
+    // setupEventDelegationForNews(document);
     // set up the form submission for adding new News items
     submitNewNewsItem(document.querySelector('#create-news-story-form'));
     // set up the news feed for regular users
@@ -562,3 +561,188 @@ window.addEventListener("DOMContentLoaded", () => {
     queryDBAndSetUpEditStory(document.querySelector('#edit-story'), document.URL.split('?')[1]);
     
 });
+
+//This is the build a story stuff. Which is similar but different.
+// Event Delegation for dynamic elements in the forms
+function setupEventDelegationForBuildAStory(element) {
+    if (element !== null) {
+        element.addEventListener("click", (e) => {
+            // Adding new sections
+            if(e.target && e.target.matches('#add-section')) {
+                e.stopPropagation();
+                renderBuildASection(document.querySelector('#sections'));
+            };
+
+            // Adding paragraph within a section
+            if (e.target && e.target.matches(".add-paragraph")) {
+                e.stopPropagation();
+                const currentSectionNumber = e.target.closest('.section').querySelector('div').getAttribute('id').split('-')[1];
+                console.log('currentSectionNumber', currentSectionNumber)
+                renderBuildAParagraph(e.target.closest('.section').querySelector('div'), currentSectionNumber)
+            };
+            // ToDo:// allow the removal of a paragraph within a section when building a story
+            // if (e.target && e.target.matches(".remove-paragraph")) {
+            //     e.stopPropagation();
+            //     e.target.closest('.paragraph').remove();
+            //     const paragraphs = document.querySelectorAll('.paragraph');
+            //     for (let i = 0; i < paragraphs.length; i++) {
+            //         paragraphs[i].querySelector('label').setAttribute('for', `paragraph-${(i + 1)}`);
+            //         paragraphs[i].querySelector('label').innerText = `Paragraph ${(i + 1)}`;
+            //         paragraphs[i].querySelector('textarea').setAttribute('id', `paragraph-${(i + 1)}`);
+            //     }
+            // };
+
+            // Adding list when building a story 
+            if (e.target && e.target.matches('.add-list')) {
+                e.stopPropagation();
+                const currentSectionNumber = e.target.closest('.section').querySelector('div').getAttribute('id').split('-')[1];
+                renderBuildAList(e.target.closest('.section').querySelector('div'), currentSectionNumber);
+               
+            };
+
+            // ToDo:// set it up so peeps can remove whole lists.
+
+            if(e.target && e.target.matches('.add-list-item')) {
+                e.stopPropagation();
+                renderAdditionalListItem(e.target.closest('.item').querySelector('.list-items'));
+            };
+
+            // ToDo:// set it up so peeps can remove individual list items.
+           
+            // Adding image when building a story 
+            if (e.target && e.target.matches('.add-image')) {
+                e.stopPropagation();
+                const currentSectionNumber = e.target.closest('.section').querySelector('div').getAttribute('id').split('-')[1];
+                renderBuildAnImage(e.target.closest('.section').querySelector('div'), currentSectionNumber) 
+            };
+            // Removing image when building a story 
+            // if (e.target && e.target.matches('.remove-art')) {
+            //     e.stopPropagation();
+            //     e.target.closest('.art').remove();
+            //     const arts = document.querySelectorAll('.art');
+            //     for (let i = 0; i < arts.length; i++) {
+            //         arts[i].querySelector('label.image').setAttribute('for', `image-${(i + 1)}`);
+            //         arts[i].querySelector('label.image').innerText = `Image ${(i + 1)}`;
+            //         arts[i].querySelector('input.image').setAttribute('id', `image-${(i + 1)}`);
+
+            //         arts[i].querySelector('label.caption').setAttribute('for', `caption-${(i + 1)}`);
+            //         arts[i].querySelector('label.caption').innerText = `Caption ${(i + 1)}`;
+            //         arts[i].querySelector('input.caption').setAttribute('id', `caption-${(i + 1)}`);
+            //     }
+            // }
+        })
+    };
+};
+
+// html template to add a new section when building a story
+function renderBuildASection(appender) {
+    const numberOfSections = document.querySelectorAll('.section').length;
+    const htmlTemplate = `
+    <div class="section">
+    <div id="section-${numberOfSections}">
+        <h3>Section ${numberOfSections}</h3>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-paragraph">+ Add a Paragraph</button></div>
+        <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-list">+ Add a list</button></div> 
+        <div class="col-12 col-sm-4"><button type="button" class="btn btn-success btn-block add-image">+ Add an image</button></div>
+    </div>
+</div>
+    `;
+    appender.innerHTML += htmlTemplate;
+};
+
+// html template for another paragraph when building a story
+function renderBuildAParagraph(appender, sectionNumber) {
+    const itemNumber = appender.querySelectorAll('.item').length;
+    const htmlTemplate = `
+    <div class="card mb-3 item">
+        <div class="card-body">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-danger my-1 remove-paragraph">Remove Paragraph</button>
+                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-paragraph">Paragraph</label>
+                <textarea class="form-control" id="section-${sectionNumber}-item-${itemNumber}-paragraph" rows="3" required="required"></textarea>
+            </div>
+        </div>
+    </div>
+`;
+    appender.innerHTML += htmlTemplate;
+};
+
+// html template for another list when building a story
+function renderBuildAList(appender, sectionNumber) {
+    const itemNumber = appender.querySelectorAll('.item').length;
+    const htmlTemplate = `
+    <div class="card mb-3 item">
+    <div class="card-body">
+        <div class="form-group">
+            <div class="mb-5">
+                <button type="button" class="float-left btn btn-success my-1 add-list-item">Add List Item</button>
+                <button type="button" class="float-right btn btn-danger my-1 remove-list">Remove List</button>
+                <div class="clearfix"></div>
+                <p class="font-weight-bold">List</p>
+            </div>
+            <div class="list-items">
+            </div>
+        </div>
+    </div>
+</div>
+    `;
+    appender.innerHTML += htmlTemplate;
+
+};
+// html template for adding individual list items when building a story
+function renderAdditionalListItem(appender) {
+    const numberOfListItems = appender.querySelectorAll('.list-item').length;
+    const htmlTemplate = `
+    <div class="list-item form-row mb-1">
+        <label class="col-sm-2 font-weight-bold" for="list-item-${numberOfListItems}">List Item ${numberOfListItems}</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="list-item-${numberOfListItems}" required="required" />
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-danger btn-sm float-right delete-list-item">Delete List Item</button>
+        </div>
+    </div>
+    `;
+    appender.innerHTML += htmlTemplate;
+};
+
+// html template for adding another image when building a story
+function renderBuildAnImage(appender, sectionNumber) {
+    const itemNumber = appender.querySelectorAll('.item').length;
+    const htmlTemplate = `
+    <div class="card mb-3 item">
+        <div class="card-body">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-danger my-1 remove-image">Remove Image</button>
+                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-image">Image URL</label>
+                <input class="form-control" id="section-${sectionNumber}-item-${itemNumber}-image" required="required" />
+
+                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-image-description">Image Description</label>
+                <input class="form-control" id="section-${sectionNumber}-item-${itemNumber}-image-description" required="required" />
+
+                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-image-width">Image Width</label>
+                <select class="form-control" id="section-${sectionNumber}-item-${itemNumber}-image-width" required="required" >
+                    <option value="">Please select a width</option>
+                    <option value="25%">25%</option>
+                    <option value="33%">33%</option>
+                    <option value="50%">50%</option>
+                    <option value="66%">66%</option>
+                    <option value="75%">75%</option>
+                    <option value="100%">100%</option>
+                </select>
+
+                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-image-aligment">Image Width</label>
+                <select class="form-control" id="section-${sectionNumber}-item-${itemNumber}-image-aligment" required="required" >
+                    <option value="">Please select aligment</option>
+                    <option value="Left">Left</option>
+                    <option value="Right">Right</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+`;
+    appender.innerHTML += htmlTemplate;
+}
