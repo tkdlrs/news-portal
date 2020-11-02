@@ -52,7 +52,6 @@ class topNavigationMenu extends HTMLElement {
     }
 };
 
-
 // Render a Build a story story
 function queryDBAndSetUpBuildAStory(appender, urlParameter) {
     if (appender !== null) {
@@ -181,15 +180,12 @@ function setupEventDelegationForBuildAStory(element) {
                     // sections[i].querySelector('label').innerText = `Paragraph ${(i + 1)}`;
                     // sections[i].querySelector('textarea').setAttribute('id', `paragraph-${(i + 1)}`);
                 };
-
                 // ToDo:// need to update everything downstream too... 
             };
-
             // Adding paragraph within a section
             if (e.target && e.target.matches(".add-paragraph")) {
                 e.stopPropagation();
                 const currentSectionNumber = e.target.closest('.section').querySelector('div').getAttribute('id').split('-')[1];
-                console.log('currentSectionNumber', currentSectionNumber)
                 renderBuildAParagraph(e.target.closest('.section').querySelector('div'), currentSectionNumber)
             };
             // Removing a paragraph within a section when building a story
@@ -198,10 +194,10 @@ function setupEventDelegationForBuildAStory(element) {
                 const currentSection = e.target.closest('.section');
                 const currentSectionNumber = currentSection.querySelector('div').getAttribute('id').split('-')[1];
                 e.target.closest('.paragraph').remove();
-                const items = currentSection.querySelectorAll('.paragraph');
-                for (let i = 0; i < items.length; i++) {
-                    items[i].querySelector('label').setAttribute('for', `section-${currentSectionNumber}-item-${i}-paragraph`);
-                    items[i].querySelector('textarea').setAttribute('id', `section-${currentSectionNumber}-item-${i}-paragraph`);
+                const paragraphs = currentSection.querySelectorAll('.paragraph');
+                for (let i = 0; i < paragraphs.length; i++) {
+                    paragraphs[i].querySelector('label').setAttribute('for', `section-${currentSectionNumber}-paragraph-${i}`);
+                    paragraphs[i].querySelector('textarea').setAttribute('id', `section-${currentSectionNumber}-paragraph-${i}`);
                 }
             };
             // Adding list when building a story 
@@ -211,7 +207,7 @@ function setupEventDelegationForBuildAStory(element) {
                 renderBuildAList(e.target.closest('.section').querySelector('div'), currentSectionNumber);
             };
             // Remove a whole list all at once.
-            if(e.target && e.target.matches(".remove-list")) {
+            if (e.target && e.target.matches(".remove-list")) {
                 e.stopPropagation();
                 const currentSection = e.target.closest('.section');
                 const currentSectionNumber = currentSection.querySelector('div').getAttribute('id').split('-')[1];
@@ -224,7 +220,7 @@ function setupEventDelegationForBuildAStory(element) {
                 renderAdditionalListItem(e.target.closest('.item').querySelector('.list-items'));
             };
             // Remove individual list items 
-            if(e.target && e.target.matches(".delete-list-item")) {
+            if (e.target && e.target.matches(".delete-list-item")) {
                 e.stopPropagation();
                 const currentSection = e.target.closest('.section');
                 const currentSectionNumber = currentSection.querySelector('div').getAttribute('id').split('-')[1];
@@ -243,30 +239,29 @@ function setupEventDelegationForBuildAStory(element) {
                 const currentSection = e.target.closest('.section');
                 const currentSectionNumber = currentSection.querySelector('div').getAttribute('id').split('-')[1];
                 e.target.closest('.image').remove();
-                const items = currentSection.querySelectorAll('.item');
-                for (let i = 0; i < items.length; i++) {
-                    items[i].querySelector('label.image-label').setAttribute('for', `section-${currentSectionNumber}-item-${i}-image`);
-                    items[i].querySelector('input.image-url').setAttribute('id', `section-${currentSectionNumber}-item-${i}-image`);
+                const images = currentSection.querySelectorAll('.item');
+                for (let i = 0; i < images.length; i++) {
+                    images[i].querySelector('label.image-label').setAttribute('for', `section-${currentSectionNumber}-image-${i}`);
+                    images[i].querySelector('input.image-url').setAttribute('id', `section-${currentSectionNumber}-image-${i}`);
 
-                    items[i].querySelector('label.description-label').setAttribute('for', `section-${currentSectionNumber}-item-${i}-image-description`);
-                    items[i].querySelector('input.image-description').setAttribute('id', `section-${currentSectionNumber}-item-${i}-image-description`);
+                    images[i].querySelector('label.description-label').setAttribute('for', `section-${currentSectionNumber}-image-${i}-description`);
+                    images[i].querySelector('input.image-description').setAttribute('id', `section-${currentSectionNumber}-image-${i}-description`);
 
-                    items[i].querySelector('label.width-label').setAttribute('for', `section-${currentSectionNumber}-item-${i}-image-width`);
-                    items[i].querySelector('select.image-width').setAttribute('id', `section-${currentSectionNumber}-item-${i}-image-width`);
+                    images[i].querySelector('label.width-label').setAttribute('for', `section-${currentSectionNumber}-image-${i}-width`);
+                    images[i].querySelector('select.image-width').setAttribute('id', `section-${currentSectionNumber}-image-${i}-width`);
 
-                    items[i].querySelector('label.alignment-label').setAttribute('for', `section-${currentSectionNumber}-item-${i}-image-alignment`);
-                    items[i].querySelector('select.image-alignment').setAttribute('id', `section-${currentSectionNumber}-item-${i}-image-alignment`);
+                    images[i].querySelector('label.alignment-label').setAttribute('for', `section-${currentSectionNumber}-image-${i}-alignment`);
+                    images[i].querySelector('select.image-alignment').setAttribute('id', `section-${currentSectionNumber}-image-${i}-alignment`);
                 }
             }
         })
     };
 };
-
+// Submit a built story
 function submitBuildAStory(formElement) {
     if (formElement != null) {
         formElement.addEventListener('submit', (e) => {
             e.preventDefault();
-
             let items = [];
             const buildAStory = {};
             buildAStory.title = formElement['title'].value;
@@ -285,7 +280,7 @@ function submitBuildAStory(formElement) {
                         if (numberOfItemsInSection[item].classList.contains('paragraph')) {
                             section[`item${item}`] = {
                                 itemType: 'paragraph',
-                                paragraph: formElement[`section-${currentSection}-item-${item}-paragraph`].value
+                                paragraph: numberOfItemsInSection[item].querySelector('textarea').value
                             };
                         } else if (numberOfItemsInSection[item].classList.contains('list')) {
                             let currentListArray = [];
@@ -300,10 +295,10 @@ function submitBuildAStory(formElement) {
                         } else if (numberOfItemsInSection[item].classList.contains('image')) {
                             section[`item${item}`] = {
                                 itemType: 'image',
-                                imageURL: formElement[`section-${currentSection}-item-${item}-image`].value,
-                                description: formElement[`section-${currentSection}-item-${item}-image-description`].value,
-                                width: formElement[`section-${currentSection}-item-${item}-image-width`].value,
-                                alignment: formElement[`section-${currentSection}-item-${item}-image-alignment`].value,
+                                imageURL: numberOfItemsInSection[item].querySelector('.image-url').value,
+                                description: numberOfItemsInSection[item].querySelector('.image-description').value,
+                                width: numberOfItemsInSection[item].querySelector('.image-width').value,
+                                alignment: numberOfItemsInSection[item].querySelector('.image-alignment').value,
                             };
                         } else {
                             section[`item${item}`] = {
@@ -334,7 +329,7 @@ function submitBuildAStory(formElement) {
         })
     };
 };
-
+// HTML Templates
 // html template to add a new section when building a story
 function renderBuildASection(appender) {
     const numberOfSections = document.querySelectorAll('.section').length;
@@ -361,24 +356,22 @@ function renderBuildASection(appender) {
     `;
     appender.innerHTML += htmlTemplate;
 };
-
 // html template for another paragraph when building a story
 function renderBuildAParagraph(appender, sectionNumber) {
-    const itemNumber = appender.querySelectorAll('.item').length;
+    const paragraphNumber = appender.querySelectorAll('.paragraph').length;
     const htmlTemplate = `
     <div class="card mb-3 item paragraph">
         <div class="card-body">
             <div class="form-group">
                 <button type="button" class="float-right btn btn-danger my-1 remove-paragraph">Remove Paragraph</button>
-                <label class="font-weight-bold" for="section-${sectionNumber}-item-${itemNumber}-paragraph">Paragraph</label>
-                <textarea class="form-control" id="section-${sectionNumber}-item-${itemNumber}-paragraph" rows="3" required="required"></textarea>
+                <label class="font-weight-bold" for="section-${sectionNumber}-paragraph-${paragraphNumber}">Paragraph</label>
+                <textarea class="form-control" id="section-${sectionNumber}-paragraph-${paragraphNumber}" rows="3" required="required"></textarea>
             </div>
         </div>
     </div>
 `;
     appender.innerHTML += htmlTemplate;
 };
-
 // html template for another list when building a story
 function renderBuildAList(appender, sectionNumber) {
     const itemNumber = appender.querySelectorAll('.item').length;
@@ -417,7 +410,6 @@ function renderAdditionalListItem(appender) {
     `;
     appender.innerHTML += htmlTemplate;
 };
-
 // html template for adding another image when building a story
 function renderBuildAnImage(appender, sectionNumber) {
     const imageNumber = appender.querySelectorAll('.image').length;
@@ -454,13 +446,16 @@ function renderBuildAnImage(appender, sectionNumber) {
     </div>
 `;
     appender.innerHTML += htmlTemplate;
-}
+};
 
+// things to do in the browser
 window.addEventListener("DOMContentLoaded", () => {
     // set up the top navigation menu component 
     window.customElements.define('top-navigation-menu', topNavigationMenu);
+    // event listner
+    setupEventDelegationForBuildAStory(document.querySelector('#build-a-story-form'))
     // submit build a story
-submitBuildAStory(document.querySelector('#build-a-story-form'));
-// set up a story 
-queryDBAndSetUpBuildAStory(document.querySelector('#view-build-a-story'), document.URL.split('?')[1])
+    submitBuildAStory(document.querySelector('#build-a-story-form'));
+    // set up a story 
+    queryDBAndSetUpBuildAStory(document.querySelector('#view-build-a-story'), document.URL.split('?')[1])
 });
