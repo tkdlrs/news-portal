@@ -30,11 +30,11 @@
     {
         "arts": [
             {
-                "image": "./static_assets/donald-giannatti-unsplash-meat.jpg",
+                "image": "../static_assets/donald-giannatti-unsplash-meat.jpg",
                 "caption": "Bacon in it's natural habitat"
             },
             {
-                "image": "./static_assets/andrew-ridley-unsplash-bacon.jpg",
+                "image": "../static_assets/andrew-ridley-unsplash-bacon.jpg",
                 "caption": "Bacon that is in an artificial habitat"
             }
         ],
@@ -53,7 +53,7 @@
             "Option 3",
             "Option 5"
         ],
-        "thumbnailImage": "./static_assets/bacon-thumbnail.jpg",
+        "thumbnailImage": "../static_assets/bacon-thumbnail.jpg",
         "title": "Bacon Ipsum"
     }
 ]
