@@ -17,7 +17,7 @@ class topNavigationMenu extends HTMLElement {
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="./view-all-stories.html">View All Stories</a>
+                    <a class="nav-link text-white" href="/regular-news/view-all-stories.html">View All Stories</a>
                 </li>
 
                 
@@ -27,18 +27,18 @@ class topNavigationMenu extends HTMLElement {
                         Admin things
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="./add-story.html">Add Story</a>
-                        <a class="dropdown-item" href="./admin-view-all-stories.html">Admin View All Stories</a>
+                        <a class="dropdown-item" href="/regular-news/add-story.html">Add Story</a>
+                        <a class="dropdown-item" href="/regular-news/admin-view-all-stories.html">Admin View All Stories</a>
                         <div class="dropdown-divider"></div>
                         <!-- <a class="dropdown-item" href="#">Something else here</a> -->
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="./build-a-story.html">Build a Story</a>
+                    <a class="nav-link text-white" href="/build-a-story/build-a-story.html">Build a Story</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="./view-build-a-story-story.html">View a Build a Story</a>
+                    <a class="nav-link text-white" href="/build-a-story/view-build-a-story-story.html">View a Build a Story</a>
                 </li>
                 
             </ul>
