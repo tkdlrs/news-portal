@@ -339,7 +339,7 @@ function renderBuildASection(appender) {
         <h3>Section ${numberOfSections}</h3>
         <div class="row justify-content-end">
             <div class="col-12 col-sm-4">
-                <button type="button" class="btn btn-danger btn-block delete-section">Delete Section</button>
+                <!-- <button type="button" class="btn btn-danger btn-block delete-section">Delete Section</button> -->
             </div>
         </div>
         <div class="my-3">
